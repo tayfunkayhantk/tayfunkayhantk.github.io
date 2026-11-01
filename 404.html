@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warhold daveti</title>
+<meta property="og:title" content="Warhold'a katıl!">
+<meta property="og:description" content="Davet kodunla ikinize de +50 Mangır.">
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#140a07;color:#f3e2c0;font-family:-apple-system,system-ui,sans-serif;text-align:center}
+  .c{max-width:420px;padding:28px}
+  h1{color:#e8b54a;font-size:28px;margin:0 0 12px}
+  .code{font-size:40px;letter-spacing:6px;font-weight:700;color:#fff;background:#2a1710;border:2px solid #c8902e;border-radius:12px;padding:14px 18px;margin:18px 0;user-select:all}
+  a.b,button{display:block;width:100%;box-sizing:border-box;margin:10px 0;padding:16px;border-radius:12px;border:0;font-size:18px;font-weight:700;text-decoration:none;cursor:pointer}
+  a.b{background:#e8b54a;color:#140a07} button{background:#3a2418;color:#f3e2c0}
+  p{opacity:.85;line-height:1.45}
+</style>
+</head>
+<body>
+<div class="c">
+  <h1>Warhold'a davet edildin!</h1>
+  <p>Oyun yüklüyse bu bağlantı oyunu açar ve kodu otomatik girer. Yüklü değilse önce App Store'dan indir, sonra bu kodu <b>Arkadaşlar → Davet kodu</b> alanına yaz.</p>
+  <div class="code" id="code">—</div>
+  <button id="copy" type="button">Kodu kopyala</button>
+  <a class="b" id="store" href="https://apps.apple.com/app/id6821683271">App Store'dan indir</a>
+  <p id="msg" style="font-size:14px"></p>
+</div>
+<script>
+(function () {
+  var STORE = "https://apps.apple.com/app/id6821683271";
+  var prefix = "/warhold/i/";
+  var path = decodeURIComponent(location.pathname);
+  var code = "";
+  var i = path.indexOf(prefix);
+  if (i >= 0) code = path.substring(i + prefix.length).replace(/\/+$/, "");
+  if (!code) { var m = location.search.match(/[?&]code=([^&]+)/); if (m) code = decodeURIComponent(m[1]); }
+  code = (code || "").replace(/[^A-Za-z0-9#]/g, "").slice(0, 40);
+  if (/^[A-Za-z0-9]+$/.test(code)) code = code.toUpperCase();
+  document.getElementById("code").textContent = code || "—";
+  document.getElementById("copy").onclick = function () {
+    var done = function () { document.getElementById("msg").textContent = "Kod kopyalandı"; };
+    if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done();
+  };
+  var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (ios && code) setTimeout(function () { if (!document.hidden) location.href = STORE; }, 2500);
+})();
+</script>
+</body>
+</html>
