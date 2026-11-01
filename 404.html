@@ -18,8 +18,9 @@
 </head>
 <body>
 <div class="c">
-  <h1>Warhold'a davet edildin!</h1>
-  <p>Oyun yüklüyse bu bağlantı oyunu açar ve kodu otomatik girer. Yüklü değilse önce App Store'dan indir, sonra bu kodu <b>Arkadaşlar → Davet kodu</b> alanına yaz.</p>
+  <h1 id="title">Warhold'a davet edildin!</h1>
+  <p id="how">Oyun yüklüyse bu bağlantı oyunu açar ve kodu otomatik girer. Yüklü değilse önce App Store'dan indir, sonra bu kodu <b>Arkadaşlar → Davet kodu</b> alanına yaz.</p>
+  <p id="label" style="margin:18px 0 -10px;font-weight:700">Davet kodu</p>
   <div class="code" id="code">—</div>
   <button id="copy" type="button">Kodu kopyala</button>
   <a class="b" id="store" href="https://apps.apple.com/app/id6821683271">App Store'dan indir</a>
@@ -31,6 +32,15 @@
   var prefix = "/warhold/i/";
   var path = decodeURIComponent(location.pathname);
   var code = "";
+  var mprefix = "/warhold/m/";
+  var isMatch = path.indexOf(mprefix) >= 0;
+  if (isMatch) {
+    prefix = mprefix;
+    document.title = "Warhold maç daveti";
+    document.getElementById("title").textContent = "Dostluk maçına çağrıldın!";
+    document.getElementById("label").textContent = "Maç kodu";
+    document.getElementById("how").innerHTML = "Oyun yüklüyse bu bağlantı oyunu açar ve maça otomatik katılır. Açmazsa Warhold'da <b>Arkadaşınla Oyna</b> ekranına gir ve bu kodu <b>Koda Katıl</b> alanına yaz. Yüklü değilse önce App Store'dan indir.";
+  }
   var i = path.indexOf(prefix);
   if (i >= 0) code = path.substring(i + prefix.length).replace(/\/+$/, "");
   if (!code) { var m = location.search.match(/[?&]code=([^&]+)/); if (m) code = decodeURIComponent(m[1]); }
