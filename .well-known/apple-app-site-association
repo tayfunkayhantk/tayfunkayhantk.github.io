@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["BC52D9HZQM.com.tayfunkayhan.warhold"],
+        "components": [
+          { "/": "/warhold/i/*", "comment": "Warhold invite links" }
+        ]
+      }
+    ]
+  }
+}
